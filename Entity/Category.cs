@@ -1,25 +1,23 @@
-﻿using Bai1.Base;
-using System;
+﻿using System;
+using Bai1.Base;
+
 namespace Bai1
 {
-    internal class Product : BaseRow
+    internal class Category : BaseRow
     {
         public int id;
         public string name;
-        public int category;
-        public Product(int _id, string _name, int _category)
+        public Category(int id, string name)
         {
-            id = _id;
-            name = _name;
-            category = _category;
+            this.id = id;
+            this.name = name;
         }
-        public Product() { }
+        public Category() { }
 
         public override void PrintData()
         {
             Console.WriteLine("id: " + id);
             Console.WriteLine("name: " + name);
-            Console.WriteLine("categoryId: " + category);
         }
 
         public override int GetId() => id;

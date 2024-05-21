@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Bai1.Base;
 
 namespace Bai1.dao
 {
@@ -16,90 +13,101 @@ namespace Bai1.dao
         int currentCategorySize;
         int currentAccessorySize;
         public static Database instance;
+        const string product = "product";
+        const string category = "category";
+        const string accessory = "accessory";
         public Database() { }
         public Database(int _size)
         {
+            if (instance == null)
+                instance = this;
+            else return;
+
             productTable = new Product[_size];
             categoryTable = new Category[_size];
             accessoryTable = new Accessory[_size];
             currentAccessorySize = 0;
             currentCategorySize = 0;
             currentProductSize = 0;
-            Database.instance = this;
         }
-        public int insertTable(string name, object row)
+        public int InsertTable(string name, BaseRow row)
         {
             switch (name)
             {
-                case "product":
+                case product:
+                    if (!productTable[currentProductSize].name.Equals(string.Empty))
+                        currentProductSize++;
+
                     if (currentProductSize >= productTable.Length)
                         Array.Resize(ref productTable, productTable.Length + 1);
-
                     productTable[currentProductSize] = (Product)row;
-                    currentProductSize++;
                     return productTable.Length;
-                case "category":
+                case category:
+                    if (!categoryTable[currentCategorySize].name.Equals(string.Empty))
+                        currentCategorySize++;
+
                     if (currentCategorySize >= categoryTable.Length)
                         Array.Resize(ref categoryTable, categoryTable.Length + 1);
                     categoryTable[currentCategorySize] = (Category)row;
-                    currentCategorySize++;
                     return categoryTable.Length;
-                case "accessory":
+                case accessory:
+                    if (!accessoryTable[currentAccessorySize].name.Equals(string.Empty))
+                        currentAccessorySize++;
+
                     if (currentAccessorySize >= accessoryTable.Length)
                         Array.Resize(ref accessoryTable, accessoryTable.Length + 1);
                     accessoryTable[currentAccessorySize] = (Accessory)row;
-                    currentAccessorySize++;
                     return accessoryTable.Length;
             }
             return 0;
         }
-        public Array selectTable(string name, object row)
+        public Array SelectTable(string name, BaseRow row)
         {
             switch (name)
             {
-                case "product":
+                case product:
                     return productTable;
-                case "category":
+                case category:
                     return categoryTable;
-                case "accessory":
+                case accessory:
                     return accessoryTable;
             }
             return null;
         }
-        public int updateTable(string name, object row)
+        public int UpdateTable(string name, BaseRow row)
         {
             int count = 0;
             switch (name)
             {
-                case "product":
-                    Product product = (Product)row;
+                case product:
+                    Product currentProduct = (Product)row;
                     for (int i = 0; i < productTable.Length; i++)
                     {
-                        if (productTable[i].id == product.id)
+                        if (productTable[i].GetId() == currentProduct.GetId())
                         {
-                            productTable[i] = product;
+                            productTable[i] = currentProduct;
                             count++;
                         }
                     }
                     return count;
-                case "category":
-                    Category category = (Category)row;
+                case category:
+                    Category currentCategory = (Category)row;
                     for (int i = 0; i < categoryTable.Length; i++)
                     {
-                        if (categoryTable[i].id == category.id)
+                        if (categoryTable[i].GetId() == currentCategory.GetId())
                         {
-                            categoryTable[i] = category;
+                            categoryTable[i] = currentCategory;
                             count++;
                         }
                     }
                     return count;
-                case "accessory":
-                    Accessory accessory = (Accessory)row;
+                case accessory:
+                    Accessory currentAccessory = (Accessory)row;
                     for (int i = 0; i < accessoryTable.Length; i++)
                     {
-                        if (accessoryTable[i].id == accessory.id)
+                        if (accessoryTable[i].GetId() == currentAccessory.GetId())
                         {
-                            accessoryTable[i] = accessory;
+                            accessoryTable[i] = currentAccessory;
                             count++;
                         }
                     }
@@ -107,43 +115,40 @@ namespace Bai1.dao
             }
             return 0;
         }
-        public Boolean deleteTable(string name, object row)
+        public Boolean DeleteTable(string name, BaseRow row)
         {
             bool result = false;
             switch (name)
             {
-                case "product":
-                    Product product = (Product)row;
-                    foreach (var item in productTable)
+                case product:
+                    Product currentProduct = (Product)row;
+                    for (int i = 0; i < productTable.Length; i++)
                     {
-                        if (item.id == product.id)
+                        if (productTable[i].GetId() == currentProduct.GetId())
                         {
-                            Product newUpdate = item;
-                            newUpdate = null;
+                            productTable[i] = new Product();
                             result = true;
                         }
                     }
                     return result;
-                case "category":
-                    Category category = (Category)row;
-                    foreach (var item in categoryTable)
+                case category:
+                    Category currentCategory = (Category)row;
+                    for (int i = 0; i < categoryTable.Length; i++)
                     {
-                        if (item.id == category.id)
+                        if (categoryTable[i].GetId() == currentCategory.GetId())
                         {
-                            Category newUpdate = item;
-                            newUpdate = null;
+                            categoryTable[i] = new Category();
                             result = true;
                         }
                     }
                     return result;
-                case "accessory":
-                    Accessory accessory = (Accessory)row;
-                    foreach (var item in accessoryTable)
+                case accessory:
+                    Accessory currentAccessory = (Accessory)row;
+                    for (int i = 0; i < accessoryTable.Length; i++)
                     {
-                        if (item.id == accessory.id)
+                        if (accessoryTable[i].GetId() == currentAccessory.GetId())
                         {
-                            Accessory newUpdate = item;
-                            newUpdate = null;
+                            accessoryTable[i] = new Accessory();
                             result = true;
                         }
                     }
@@ -151,16 +156,44 @@ namespace Bai1.dao
             }
             return result;
         }
-        public void truncateTable(string name)
+        public void TruncateTable(string name)
         {
             switch (name)
             {
-                case "product": Array.Resize(ref productTable, 0); break;
-                case "category": Array.Resize(ref categoryTable, 0); break;
-                case "accessory": Array.Resize(ref accessoryTable, 0); break;
+                case product: Array.Resize(ref productTable, 0); break;
+                case category: Array.Resize(ref categoryTable, 0); break;
+                case accessory: Array.Resize(ref accessoryTable, 0); break;
                 default:
                     Console.WriteLine("name input is invalid");
                     break;
+            }
+        }
+
+        public void UpdateTableById(int id, BaseRow row)
+        {
+            for (int i = 0; i < productTable.Length; i++)
+            {
+                if (!(row is Product)) continue;
+                if (productTable[i].GetId() == id)
+                {
+                    productTable[i] = (Product)row;
+                }
+            }
+            for (int i = 0; i < categoryTable.Length; i++)
+            {
+                if (!(row is Category)) continue;
+                if (categoryTable[i].GetId() == id)
+                {
+                    categoryTable[i] = (Category)row;
+                }
+            }
+            for (int i = 0; i < accessoryTable.Length; i++)
+            {
+                if (!(row is Accessory)) continue;
+                if (accessoryTable[i].GetId() == id)
+                {
+                    accessoryTable[i] = (Accessory)row;
+                }
             }
         }
     }

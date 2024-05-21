@@ -13,7 +13,7 @@ namespace Bai1.demo
              
         }
         public ProductDemo() { }
-        public void createProductTest()
+        public void CreateProductTest()
         {
             Console.Write("Enter id: ");
             id = int.Parse(Console.ReadLine());
@@ -22,11 +22,9 @@ namespace Bai1.demo
             Console.Write("Enter category id: ");
             category = int.Parse(Console.ReadLine());
         }
-        public void printProduct()
+        public override void PrintData()
         {
-            Console.WriteLine("id: "+ id);
-            Console.WriteLine("name: "+ name);
-            Console.WriteLine("category: "+ category);
+            base.PrintData();
         }
     }
 }
