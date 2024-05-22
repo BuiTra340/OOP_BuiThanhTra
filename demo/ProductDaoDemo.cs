@@ -1,24 +1,38 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Bai1.Base;
 
 namespace Bai1.demo
 {
-    internal class ProductDaoDemo
+    public class ProductDaoDemo : ProductDAO
     {
-        ProductDAO productDAO = new ProductDAO();
-        public int InsertTest(Product row) => productDAO.Insert(row);
+        public int InsertTest(Product row)
+        {
+            return base.Insert(row);
+        }
 
-        public int UpdateTest(Product row) => productDAO.Update(row);
+        public int UpdateTest(Product row)
+        {
+            return base.Update(row);
+        }
 
-        public bool DeleteTest(Product row) => productDAO.Delete(row);
+        public bool DeleteTest(Product row)
+        {
+            return base.Delete(row);
+        }
 
-        public Array FindAllTest() => productDAO.FindAll();
+        public Array FindAllTest(Product row)
+        {
+            return base.FindAll(row);
+        }
 
-        public object FindByIdTest(string name) => productDAO.FindById(name);
+        public object FindByIdTest(int id, BaseRow row)
+        {
+            return base.FindById(id, row);
+        }
 
-        public object FindByNameTest(string name) => productDAO.FindByName(name);
+        public object FindByNameTest(string name, BaseRow row)
+        {
+            return base.FindByName(name,row);
+        }
     }
 }

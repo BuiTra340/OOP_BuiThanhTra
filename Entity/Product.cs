@@ -2,28 +2,40 @@
 using System;
 namespace Bai1
 {
-    internal class Product : BaseRow
+    public class Product : BaseRow
     {
-        public int id;
-        public string name;
-        public int category;
-        public Product(int _id, string _name, int _category)
+        public int categoryId;
+        public Product(int id, string name, int categoryId)
         {
-            id = _id;
-            name = _name;
-            category = _category;
+            SetId(id);
+            SetName(name);
+            this.categoryId = categoryId;
         }
         public Product() { }
 
-        public override void PrintData()
+        /*
+         * Lấy giá trị CategoryId của đối tượng Product
+         */
+        public int GetCategoryId()
         {
-            Console.WriteLine("id: " + id);
-            Console.WriteLine("name: " + name);
-            Console.WriteLine("categoryId: " + category);
+            return categoryId;
         }
 
-        public override int GetId() => id;
+        /*
+         * Thay đổi CategoryId của đối tượng Product
+         */
+        public void SetCategoryId(int CategoryId)
+        {
+            this.categoryId = CategoryId;
+        }
 
-        public override void SetId(int _id) => id = _id;
+        /*
+         * Hiển thị thông tin của đối tượng Product
+         */
+        public override void PrintData()
+        {
+            base.PrintData();
+            Console.WriteLine("categoryId: " + categoryId);
+        }
     }
 }

@@ -3,83 +3,106 @@ using Bai1.Base;
 
 namespace Bai1.dao
 {
-    internal class Database
+    public class Database
     {
         public Product[] productTable;
         public Category[] categoryTable;
         public Accessory[] accessoryTable;
 
-        int currentProductSize;
-        int currentCategorySize;
-        int currentAccessorySize;
+        private int CurrentProductSize = 0;
+        private int CurrentCategorySize = 0;
+        private int CurrentAccessorySize = 0;
         public static Database instance;
-        const string product = "product";
-        const string category = "category";
-        const string accessory = "accessory";
-        public Database() { }
-        public Database(int _size)
+        const string ProductName = "product";
+        const string CategoryName = "category";
+        const string AccessoryName = "accessory";
+        public Database() {}
+        public Database(int initSize)
+        {
+            instance = this;
+            productTable = new Product[initSize];
+            categoryTable = new Category[initSize];
+            accessoryTable = new Accessory[initSize];
+            for (int i = 0; i < initSize; i++)
+            {
+                productTable[i] = new Product(i+1, ProductName + (i+1), i+1);
+                categoryTable[i] = new Category(i+1, CategoryName + (i+1));
+                accessoryTable[i] = new Accessory(i+1, AccessoryName + (i+1));
+                CurrentAccessorySize++;
+                CurrentCategorySize++;
+                CurrentProductSize++;
+            }
+        }
+
+        public static Database InitializeDatabase(int size)
         {
             if (instance == null)
-                instance = this;
-            else return;
-
-            productTable = new Product[_size];
-            categoryTable = new Category[_size];
-            accessoryTable = new Accessory[_size];
-            currentAccessorySize = 0;
-            currentCategorySize = 0;
-            currentProductSize = 0;
+                instance = new Database(size);
+            return instance;
         }
+
+        /// <summary>
+        /// Add object to database.
+        /// </summary>
+        /// <param name="row">Object to add</param>
+        /// <param name="name">Type of object to add</param>
+        /// <returns>The number of objects have been added to the database</returns>
         public int InsertTable(string name, BaseRow row)
         {
             switch (name)
             {
-                case product:
-                    if (!productTable[currentProductSize].name.Equals(string.Empty))
-                        currentProductSize++;
-
-                    if (currentProductSize >= productTable.Length)
-                        Array.Resize(ref productTable, productTable.Length + 1);
-                    productTable[currentProductSize] = (Product)row;
+                case ProductName:
+                    Array.Resize(ref productTable, productTable.Length + 1);
+                    productTable[CurrentProductSize] = (Product)row;
+                    CurrentProductSize++;
                     return productTable.Length;
-                case category:
-                    if (!categoryTable[currentCategorySize].name.Equals(string.Empty))
-                        currentCategorySize++;
 
-                    if (currentCategorySize >= categoryTable.Length)
-                        Array.Resize(ref categoryTable, categoryTable.Length + 1);
-                    categoryTable[currentCategorySize] = (Category)row;
+                case CategoryName:
+                    Array.Resize(ref categoryTable, categoryTable.Length + 1);
+                    categoryTable[CurrentCategorySize] = (Category)row;
+                    CurrentCategorySize++;
                     return categoryTable.Length;
-                case accessory:
-                    if (!accessoryTable[currentAccessorySize].name.Equals(string.Empty))
-                        currentAccessorySize++;
 
-                    if (currentAccessorySize >= accessoryTable.Length)
-                        Array.Resize(ref accessoryTable, accessoryTable.Length + 1);
-                    accessoryTable[currentAccessorySize] = (Accessory)row;
+                case AccessoryName:
+                    Array.Resize(ref accessoryTable, accessoryTable.Length + 1);
+                    accessoryTable[CurrentAccessorySize] = (Accessory)row;
+                    CurrentAccessorySize++;
                     return accessoryTable.Length;
             }
             return 0;
         }
+
+        /// <summary>
+        /// Select an array of object to database.
+        /// </summary>
+        /// <param name="name">Type of object to add</param>
+        /// <returns>An array of matching objects</returns>
         public Array SelectTable(string name, BaseRow row)
         {
             switch (name)
             {
-                case product:
+                case ProductName:
                     return productTable;
-                case category:
+                case CategoryName:
                     return categoryTable;
-                case accessory:
+                case AccessoryName:
                     return accessoryTable;
             }
             return null;
         }
+
+        /// <summary>
+        /// Update object to database.
+        /// </summary>
+        /// <param name="row">The object is updated into the array</param>
+        /// <param name="name">Type of object to update</param>
+        /// <returns>The number of objects have been updated to the database</returns>
         public int UpdateTable(string name, BaseRow row)
         {
             int count = 0;
             switch (name)
             {
-                case product:
+                case ProductName:
                     Product currentProduct = (Product)row;
                     for (int i = 0; i < productTable.Length; i++)
                     {
@@ -90,7 +113,7 @@ namespace Bai1.dao
                         }
                     }
                     return count;
-                case category:
+                case CategoryName:
                     Category currentCategory = (Category)row;
                     for (int i = 0; i < categoryTable.Length; i++)
                     {
@@ -101,7 +124,7 @@ namespace Bai1.dao
                         }
                     }
                     return count;
-                case accessory:
+                case AccessoryName:
                     Accessory currentAccessory = (Accessory)row;
                     for (int i = 0; i < accessoryTable.Length; i++)
                     {
@@ -115,12 +138,19 @@ namespace Bai1.dao
             }
             return 0;
         }
+
+        /// <summary>
+        /// Delete object to database.
+        /// </summary>
+        /// <param name="row">Use the id of object to delete elements in the array</param>
+        /// <param name="name">Type of object to delete</param>
+        /// <returns>True if object deletion is successful, false if object deletion fails</returns>
         public Boolean DeleteTable(string name, BaseRow row)
         {
             bool result = false;
             switch (name)
             {
-                case product:
+                case ProductName:
                     Product currentProduct = (Product)row;
                     for (int i = 0; i < productTable.Length; i++)
                     {
@@ -131,7 +161,7 @@ namespace Bai1.dao
                         }
                     }
                     return result;
-                case category:
+                case CategoryName:
                     Category currentCategory = (Category)row;
                     for (int i = 0; i < categoryTable.Length; i++)
                     {
@@ -142,7 +172,7 @@ namespace Bai1.dao
                         }
                     }
                     return result;
-                case accessory:
+                case AccessoryName:
                     Accessory currentAccessory = (Accessory)row;
                     for (int i = 0; i < accessoryTable.Length; i++)
                     {
@@ -156,19 +186,28 @@ namespace Bai1.dao
             }
             return result;
         }
+
+        /*
+         * Delete all elements in database
+         */
         public void TruncateTable(string name)
         {
             switch (name)
             {
-                case product: Array.Resize(ref productTable, 0); break;
-                case category: Array.Resize(ref categoryTable, 0); break;
-                case accessory: Array.Resize(ref accessoryTable, 0); break;
+                case ProductName: Array.Resize(ref productTable, 0); break;
+                case CategoryName: Array.Resize(ref categoryTable, 0); break;
+                case AccessoryName: Array.Resize(ref accessoryTable, 0); break;
                 default:
                     Console.WriteLine("name input is invalid");
                     break;
             }
         }
 
+        /// <summary>
+        /// Update object to database.
+        /// </summary>
+        /// <param name="row">Use the id of object to update elements in the array</param>
+        /// <param name="name">Type of object to update</param>
         public void UpdateTableById(int id, BaseRow row)
         {
             for (int i = 0; i < productTable.Length; i++)
@@ -195,6 +234,14 @@ namespace Bai1.dao
                     accessoryTable[i] = (Accessory)row;
                 }
             }
+        }
+
+        public string GetObjectTypeName(BaseRow row)
+        {
+            if (row is Product) return "product";
+            else if (row is Category) return "category";
+            else if (row is Accessory) return "accessory";
+            return string.Empty;
         }
     }
 }

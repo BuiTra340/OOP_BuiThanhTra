@@ -6,25 +6,25 @@ using System.Threading.Tasks;
 
 namespace Bai1.demo
 {
-    internal class ProductDemo : Product
+    public class ProductDemo : Product
     {
-        public ProductDemo(int _id, string _name, int _category) : base(_id, _name, _category)
-        {
-             
-        }
         public ProductDemo() { }
-        public void CreateProductTest()
+
+        /*
+         * Tạo ra một đối tượng Product có đầy đủ thông tin
+         */
+        public Product CreateProductTest()
         {
-            Console.Write("Enter id: ");
-            id = int.Parse(Console.ReadLine());
-            Console.Write("Enter name: ");
-            name = Console.ReadLine();
-            Console.Write("Enter category id: ");
-            category = int.Parse(Console.ReadLine());
+            Product productTest = new Product(1,"product1",1);
+            return productTest;
         }
-        public override void PrintData()
+
+        /*
+         * Hiển thị thông tin của đối tượng Product vừa tạo
+         */
+        public void PrintData(Product product)
         {
-            base.PrintData();
+            product.PrintData();
         }
     }
 }

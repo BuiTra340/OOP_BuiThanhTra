@@ -43,7 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\BaseDao.cs" />
     <Compile Include="Base\BaseRow.cs" />
+    <Compile Include="Base\IDao.cs" />
+    <Compile Include="Base\IEntity.cs" />
     <Compile Include="demo\AccessoryDaoDemo.cs" />
     <Compile Include="Entity\Accessory.cs" />
     <Compile Include="Entity\Category.cs" />

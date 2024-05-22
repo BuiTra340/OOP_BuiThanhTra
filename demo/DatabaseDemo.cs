@@ -4,28 +4,34 @@ using Bai1.Base;
 
 namespace Bai1.demo
 {
-    internal class DatabaseDemo
+    public class DatabaseDemo
     {
-        const string product = "product";
-        const string category = "category";
-        const string accessory = "accessory";
-        const int initSize = 10;
-        Database db = Database.instance;
-        public int InsertTableTest(string name,BaseRow row) => db.InsertTable(name, row);
-        public Array SelectTableTest(string name, BaseRow row) => db.SelectTable(name, row);
-        public int UpdateTableTest(string name, BaseRow row) => db.UpdateTable(name, row);
-        public Boolean DeleteTableTest(string name, BaseRow row) => db.DeleteTable(name, row);
-        public void TruncateTableTest(string name) => db.TruncateTable(name);
+        const int InitSize = 10;
+        private Database db = Database.instance;
+        public int InsertTableTest(string name, BaseRow row)
+        {
+            return db.InsertTable(name, row);
+        }
+        public Array SelectTableTest(string name, BaseRow row)
+        {
+            return db.SelectTable(name, row);
+        }
+        public int UpdateTableTest(string name, BaseRow row)
+        {
+            return db.UpdateTable(name, row);
+        }
+        public Boolean DeleteTableTest(string name, BaseRow row)
+        {
+            return db.DeleteTable(name, row);
+        }
+        public void TruncateTableTest(string name)
+        {
+           db.TruncateTable(name);
+        }
 
         public void InitDatabase()
         {
-            db = new Database(initSize);
-            for (int i = 0; i < initSize; i++)
-            {
-                db.productTable[i] = new Product(i, product + i, i);
-                db.categoryTable[i] = new Category(i, category + i);
-                db.accessoryTable[i] = new Accessory(i, accessory + i);
-            }
+            db = new Database(InitSize);
         }
 
         public void PrintTableTest()
@@ -52,12 +58,24 @@ namespace Bai1.demo
             PrintTableTest();
         }
 
-        public int InsertTest(string name, BaseRow row) => db.InsertTable(name, row);
+        public int InsertTest(string name, BaseRow row)
+        {
+            return db.InsertTable(name, row);
+        }
 
-        public bool DeleteTest(string name, BaseRow row) => db.DeleteTable(name, row);
+        public bool DeleteTest(string name, BaseRow row)
+        {
+            return db.DeleteTable(name, row);
+        }
 
-        public Array SelectTest(string name, BaseRow row) => db.SelectTable(name, row);
+        public Array SelectTest(string name, BaseRow row)
+        {
+            return db.SelectTable(name, row);
+        }
 
-        public void TruncateTest(string name) => db.TruncateTable(name);
+        public void TruncateTest(string name)
+        {
+            db.TruncateTable(name);
+        }
     }
 }
