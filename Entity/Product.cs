@@ -4,30 +4,14 @@ namespace Bai1
 {
     public class Product : BaseRow
     {
-        public int categoryId;
+        public int categoryId { get;set; }
         public Product(int id, string name, int categoryId)
         {
-            SetId(id);
-            SetName(name);
+            this.id = id;
+            this.name = name;
             this.categoryId = categoryId;
         }
         public Product() { }
-
-        /*
-         * Lấy giá trị CategoryId của đối tượng Product
-         */
-        public int GetCategoryId()
-        {
-            return categoryId;
-        }
-
-        /*
-         * Thay đổi CategoryId của đối tượng Product
-         */
-        public void SetCategoryId(int CategoryId)
-        {
-            this.categoryId = CategoryId;
-        }
 
         /*
          * Hiển thị thông tin của đối tượng Product

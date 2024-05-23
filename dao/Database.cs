@@ -16,8 +16,7 @@ namespace Bai1.dao
         const string ProductName = "product";
         const string CategoryName = "category";
         const string AccessoryName = "accessory";
-        public Database() {}
-        public Database(int initSize)
+        private Database(int initSize)
         {
             instance = this;
             productTable = new Product[initSize];
@@ -106,7 +105,7 @@ namespace Bai1.dao
                     Product currentProduct = (Product)row;
                     for (int i = 0; i < productTable.Length; i++)
                     {
-                        if (productTable[i].GetId() == currentProduct.GetId())
+                        if (productTable[i].id == currentProduct.id)
                         {
                             productTable[i] = currentProduct;
                             count++;
@@ -117,7 +116,7 @@ namespace Bai1.dao
                     Category currentCategory = (Category)row;
                     for (int i = 0; i < categoryTable.Length; i++)
                     {
-                        if (categoryTable[i].GetId() == currentCategory.GetId())
+                        if (categoryTable[i].id == currentCategory.id)
                         {
                             categoryTable[i] = currentCategory;
                             count++;
@@ -128,7 +127,7 @@ namespace Bai1.dao
                     Accessory currentAccessory = (Accessory)row;
                     for (int i = 0; i < accessoryTable.Length; i++)
                     {
-                        if (accessoryTable[i].GetId() == currentAccessory.GetId())
+                        if (accessoryTable[i].id == currentAccessory.id)
                         {
                             accessoryTable[i] = currentAccessory;
                             count++;
@@ -154,7 +153,7 @@ namespace Bai1.dao
                     Product currentProduct = (Product)row;
                     for (int i = 0; i < productTable.Length; i++)
                     {
-                        if (productTable[i].GetId() == currentProduct.GetId())
+                        if (productTable[i].id == currentProduct.id)
                         {
                             productTable[i] = new Product();
                             result = true;
@@ -165,7 +164,7 @@ namespace Bai1.dao
                     Category currentCategory = (Category)row;
                     for (int i = 0; i < categoryTable.Length; i++)
                     {
-                        if (categoryTable[i].GetId() == currentCategory.GetId())
+                        if (categoryTable[i].id == currentCategory.id)
                         {
                             categoryTable[i] = new Category();
                             result = true;
@@ -176,7 +175,7 @@ namespace Bai1.dao
                     Accessory currentAccessory = (Accessory)row;
                     for (int i = 0; i < accessoryTable.Length; i++)
                     {
-                        if (accessoryTable[i].GetId() == currentAccessory.GetId())
+                        if (accessoryTable[i].id == currentAccessory.id)
                         {
                             accessoryTable[i] = new Accessory();
                             result = true;
@@ -213,7 +212,7 @@ namespace Bai1.dao
             for (int i = 0; i < productTable.Length; i++)
             {
                 if (!(row is Product)) continue;
-                if (productTable[i].GetId() == id)
+                if (productTable[i].id == id)
                 {
                     productTable[i] = (Product)row;
                 }
@@ -221,7 +220,7 @@ namespace Bai1.dao
             for (int i = 0; i < categoryTable.Length; i++)
             {
                 if (!(row is Category)) continue;
-                if (categoryTable[i].GetId() == id)
+                if (categoryTable[i].id == id)
                 {
                     categoryTable[i] = (Category)row;
                 }
@@ -229,7 +228,7 @@ namespace Bai1.dao
             for (int i = 0; i < accessoryTable.Length; i++)
             {
                 if (!(row is Accessory)) continue;
-                if (accessoryTable[i].GetId() == id)
+                if (accessoryTable[i].id == id)
                 {
                     accessoryTable[i] = (Accessory)row;
                 }

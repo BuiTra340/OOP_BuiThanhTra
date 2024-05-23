@@ -17,8 +17,11 @@ namespace Bai1
                 db.accessoryTable[i].PrintData();
 
             Console.WriteLine("Insert 2 Object ---------------");
+            Database db2 = Database.InitializeDatabase(5);
             accessoryDaoDemo.InsertTest(accessory2);
             accessoryDaoDemo.InsertTest(accessory3);
+            Console.WriteLine("aaaa " + db.accessoryTable.Length);
+            Console.WriteLine("aaaa " + db2.accessoryTable.Length);
             for (int i = 0; i < db.accessoryTable.Length; i++)
                 db.accessoryTable[i].PrintData();
 
@@ -58,9 +61,9 @@ namespace Bai1
             }
             if (currentObject is Category category)
                 category.PrintData();
-            else if(currentObject is Product product)
+            else if (currentObject is Product product)
                 product.PrintData();
-            else if(currentObject is Accessory accessory)
+            else if (currentObject is Accessory accessory)
                 accessory.PrintData();
         }
     }

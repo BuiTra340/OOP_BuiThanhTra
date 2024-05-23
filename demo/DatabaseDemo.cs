@@ -6,8 +6,8 @@ namespace Bai1.demo
 {
     public class DatabaseDemo
     {
-        const int InitSize = 10;
-        private Database db = Database.instance;
+        const int initSize = 10;
+        private Database db;
         public int InsertTableTest(string name, BaseRow row)
         {
             return db.InsertTable(name, row);
@@ -31,7 +31,8 @@ namespace Bai1.demo
 
         public void InitDatabase()
         {
-            db = new Database(InitSize);
+            //db = new Database(initSize);
+            db = Database.InitializeDatabase(initSize);
         }
 
         public void PrintTableTest()
@@ -50,32 +51,6 @@ namespace Bai1.demo
             {
                 db.productTable[i].PrintData();
             }
-        }
-
-        public void UpdateTableTest(int id, BaseRow row)
-        {
-            db.UpdateTableById(id, row);
-            PrintTableTest();
-        }
-
-        public int InsertTest(string name, BaseRow row)
-        {
-            return db.InsertTable(name, row);
-        }
-
-        public bool DeleteTest(string name, BaseRow row)
-        {
-            return db.DeleteTable(name, row);
-        }
-
-        public Array SelectTest(string name, BaseRow row)
-        {
-            return db.SelectTable(name, row);
-        }
-
-        public void TruncateTest(string name)
-        {
-            db.TruncateTable(name);
         }
     }
 }

@@ -7,8 +7,8 @@ namespace Bai1
     {
         public Category(int id, string name)
         {
-            SetId(id);
-            SetName(name);
+            this.id = id;
+            this.name = name;
         }
         public Category() { }
     }

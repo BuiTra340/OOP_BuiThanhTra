@@ -56,7 +56,7 @@ namespace Bai1.Base
             BaseRow[] baseRows = FindElementInBaseRows(row);
             for (int i = 0; i < baseRows.Length; i++)
             {
-                if (baseRows[i].GetId() == id)
+                if (baseRows[i].id == id)
                     return baseRows[i];
             }
             return null;
@@ -73,8 +73,8 @@ namespace Bai1.Base
             BaseRow[] baseRows = FindElementInBaseRows(row);
             for (int i = 0; i < baseRows.Length; i++)
             {
-                if (baseRows[i].GetName().Equals(string.Empty)) continue;
-                if (baseRows[i].GetName().Equals(name))
+                if (baseRows[i].name.Equals(string.Empty)) continue;
+                if (baseRows[i].name.Equals(name))
                     return baseRows[i];
             }
             return null;
